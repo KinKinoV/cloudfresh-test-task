@@ -18,10 +18,25 @@
   <!-- Navigation Bar -->
   <nav>
     <div class="nav-wrapper green lighten-1">
-      <a href="#" class="brand-logo center">Hello <i class="medium material-icons">waving_hand</i></a>
+      <a href="{{ url_for('index') }}" class="brand-logo center">Hello <i class="medium material-icons">waving_hand</i></a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        {% if g.user %}
+          <li><a href="#"><b>{{ g.user['username'] }}</b></a></li>
+          <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% else %}
+          <li><a href="{{ url_for('auth.register') }}">Register</a>
+          <li><a href="{{ url_for('auth.login') }}">Log In</a>
+        {% endif %}
+      </ul>
     </div>
   </nav>
-
+  <div class="container">
+    {% for message in get_flashed_messages() %}
+      <div class="row">
+        <div class="col s12 flash">{{ message }}</div>
+      </div>
+    {% endfor %}
+  </div>
   <!-- Main content -->
   <main>
     {% block content %}
