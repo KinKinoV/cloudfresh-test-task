@@ -5,6 +5,10 @@ from flask import Flask, render_template
 def create_app(test_config=None):
     # Create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskExample.sqlite'),
+    )
 
     if test_config is None:
         # Load config file if it exists, while NOT testing
@@ -18,6 +22,12 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    
+    from . import db
+    db.init_app(app)
+
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     # Simple page that says 'Hello!'. Needed for tests
     @app.route('/hello')
