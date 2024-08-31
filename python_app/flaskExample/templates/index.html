@@ -5,7 +5,7 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <h3 class="center-align">Welcome to the test Flask site!</h3>
+      <h3 class="center-align">Welcome to the test Flask site{% if g.user['username'] %}, {{ g.user['username']}}!{% else %}!{% endif %}</h3>
     </div>
     <div class="row">
       <div class="col s12 m4">
