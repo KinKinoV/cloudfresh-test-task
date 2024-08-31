@@ -3,6 +3,17 @@ Infrastructure needed for this task was deployed to AWS using Terraform. Meaning
 
 Terraform modules used and inputs needed for this project are listed [here](#modules-used-and-inputs).
 
+## Infrastructure deployment and destruction
+
+To deploy infrastructure follow this instruction:
+1. Change directory to `/python_infra`
+2. Create `.tfvars` file and define all needed inputs
+3. Execute `terraform apply -var-file=your.tfvars`
+4. Confirm that terraform will deploy all needed infrastructure and then confirm apply with `yes`
+5. After terraform deploys infrastructure you should be able to ssh into the EC2 instance using `instance_dns` output
+
+To destroy created infrastructure execute `terraform destroy -var-file=your.tfvars` in the `/python_infra` folder.
+
 ## VM set up
 Before deploying flaskExample application to the EC2 instance you need to set up VM. Steps you need to follow are these:
 1. SSH into the deployed EC2 instance using `instance_pub_ip` or `instance_dns` output.
@@ -21,7 +32,7 @@ flask --app flaskExample init-db
 # Creating env file with secret key for the app
 echo "SECRET_KEY = '$(python -c 'import secrets; print(secrets.token_hex())')'" > instance/config.py
 ```
-7. Now you can deactivate virtual envieonment. Next step is to create service for the flaskExample app. To do this you need:
+7. Now you can deactivate virtual environment. Next step is to create service for the flaskExample app. To do this you need:
     - Execute `sudo nano /etc/systemd/system/flaskExample.service`. This will create `.service` file and open it in editor.
     - Paste the code from [example.service](/python_infra/example.service) file into yours while changing what is different for you
     - Execute these commands:
