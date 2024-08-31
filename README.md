@@ -17,7 +17,7 @@ To implement CI/CD pipelines I used GitHub Actions that are doing next things:
     - Switches directory to one where flask application is located using `APP_DIR` actions environment secret
     - Pulls all new code from GitHub repository
     - Restarts gunicorn service that is responsible for flask application (name of the service is stored in `SERVICE_NAME` actions environment secret)
-    - Tests if CD was successfull and nothing broke by fetching `/hello` page from the app on `HOST_NAME` address
+    - Tests if CD was successfull and nothing broke by fetching `/hello` page from the app on `SITE_DNS` address
 CI/CD pipelines are triggering only on pushes and pull requests into the `main` branch. Additionally, set up instructions for the EC2 instance so that it will be able to serve flask application is described in [infrastructure's README.md](/python_infra/README.md).
 
 ## Security
