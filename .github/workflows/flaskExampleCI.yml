@@ -96,7 +96,7 @@ jobs:
     - name: Testing application
       run: |
         sleep 5
-        curl ${{ secrets.HOST_NAME }}/hello | grep "Hello, world!"
+        curl ${{ secrets.SITE_DNS }}/hello | grep "Hello, world!"
     
 
 
