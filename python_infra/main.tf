@@ -39,7 +39,7 @@ module "flask-vpc" {
 # Security groups
 module "flask-sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  version = "5.2.0"
 
   name        = "flask-sg"
   description = "Security group for simple Flask app"
